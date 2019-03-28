@@ -1,0 +1,20 @@
+version: "3"
+services:
+  server:
+    build: ./src/server/
+    ports:
+     - "8080:8080"
+    links:
+     - worker
+     - redis
+    environment:
+     - REDIS_URL=redis://cache
+  worker:
+    build: ./src/worker/
+    links:
+     - redis
+    environment:
+     - REDIS_URL=redis://cache
+  redis:
+    image: redis
+    container_name: cache
