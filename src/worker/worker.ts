@@ -13,7 +13,7 @@ randomQueue.process(1, (job: any, done: any) => {
 	setTimeout(
 		() => {
 			console.log('finished processing job', job.id);
-			done(null, Math.random);
+			done(null, Math.ceil(Math.random() * 100));
 		},
 		delay
 	)

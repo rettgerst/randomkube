@@ -19,8 +19,8 @@ app.get('/', async (_req, res) => {
 		console.log('created job', job.id);
 		
 		job.on('succeeded', result => {
-			console.log('job succeeded');
-			res.json(result);
+			console.log('job succeeded with result', result);
+			res.json({ result });
 		});
 	} catch (err) {
 		console.error(err);

@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: worker
+  name: worker
+spec:
+  replicas: 5
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: worker
+    spec:
+      containers:
+      - env:
+        - name: REDIS_URL
+          value: redis://randomkube-cache
+        image: localhost:5000/worker
+        name: worker
+        resources: {}
+      restartPolicy: Always
+status: {}

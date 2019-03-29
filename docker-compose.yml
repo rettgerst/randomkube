@@ -8,13 +8,21 @@ services:
      - worker
      - redis
     environment:
-     - REDIS_URL=redis://cache
+     - REDIS_URL=redis://randomkube-cache
   worker:
     build: ./src/worker/
     links:
-     - redis
+      - redis
     environment:
-     - REDIS_URL=redis://cache
+      - REDIS_URL=redis://randomkube-cache
   redis:
     image: redis
-    container_name: cache
+    container_name: randomkube-cache
+  lb:
+    image: dockercloud/haproxy
+    ports:
+      - 3030:80
+    links:
+      - server
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
